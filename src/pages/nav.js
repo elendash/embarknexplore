@@ -1,31 +1,32 @@
-import { Link } from 'react-router-dom';
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
+import { useQuery, QueryClient, QueryClientProvider } from "react-query"
 
-
-export default function Nav(props) {
-    const [allList, setAllList] = useState([]);
-    useEffect(() => {
-        fetch("https://embark-n-explore.herokuapp.com/categories")
-            .then(
-                (data) => data.json(),
-                (err) => console.log(err)
-            )
-            .then(
-                (parsedData) => setAllList(parsedData),
-                (err) => console.log(err)
-            );
-    }, []);
-    console.log(allList === [] ? "empty" : allList[0].embark_n_explores[1].address)
-
+const queryClient = new QueryClient()
+export default function Nav() {
+    return (
+        <QueryClientProvider client={queryClient}>
+            <CategoriesData />
+        </QueryClientProvider>
+    )
+}
+function CategoriesData() {
     const history = useHistory();
-    const category = (props.list === [] ? [] : props.list)
+    const { isLoading, error, data } = useQuery('repoData', () =>
+        fetch('https://embark-n-explore.herokuapp.com/categories').then(res =>
+            res.json()
+        )
+    )
+    if (isLoading) return 'Loading...'
+    if (error) return 'An error has occurred: ' + error.message
+
+    console.log(data[0]._id)
     return (
         <>
             <ul>
                 <li onClick={() => { history.push("/") }}>
                     <Link to="/">Home</Link>
                 </li>
-                {category.map((categoriesId, index) => {
+                {data.map((categoriesId, index) => {
                     return (
                         <li key={index} onClick={() => { history.push(`/category/${categoriesId._id}`) }}>
                             <Link to={`/category/${categoriesId._id}`} linkId={`/category/${categoriesId._id}`}>{categoriesId.type}</Link>

@@ -1,29 +1,36 @@
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react'
+import { useQuery, QueryClient, QueryClientProvider } from "react-query"
 
-export default function CategoriesPage(props) {
+const queryClient = new QueryClient()
+
+export default function CategoriesPage() {
+    return (
+        <QueryClientProvider client={queryClient}>
+            <Pages />
+        </QueryClientProvider>
+    )
+}
+
+function Pages() {
     const { eachCategories } = useParams();
-    const category = (props.list === [] ? [] : props.list)
-    const links = props.linkId
-    const categoryType = category.filter((title) => title.eachCategories === title)
+    const headers = {
+        'Content-Type': 'application/json',
+    };
+    const { isLoading, error, data } = useQuery('repoData', () =>
+        fetch(`https://embark-n-explore.herokuapp.com/categories/${eachCategories}`, {
+            method: 'GET',
+            headers: headers,
+        }).then(res =>
+            res.json()
+        )
+    )
+    if (isLoading) return 'Loading...'
+    if (error) return 'An error has occurred: ' + error.message
 
-    //     const [allList, setAllList] = useState([]);
-    //   useEffect(() => {
-    //     fetch("https://embark-n-explore.herokuapp.com/categories")
-    //       .then(
-    //         (data) => data.json(),
-    //         (err) => console.log(err)
-    //       )
-    //       .then(
-    //         (parsedData) => setAllList(parsedData),
-    //         (err) => console.log(err)
-    //       );
-    //   }, []);
-    // console.log(allList === [] ? "empty" : allList[0].embark_n_explores[1].address)
-
+    console.log(data)
     const handleLegitVote = () => {
         console.log("legit")
-        // fetch('https://embark-n-explore.herokuapp.com/categories', {
+        //{
         //     method: 'POST',
         //     headers: {
         //         'Content-Type': 'application/json',
@@ -31,48 +38,32 @@ export default function CategoriesPage(props) {
         //     body: JSON.stringify({
         //         legit_votes: +1,
         //     }),
-        // })
-        //     .then(response => response.json())
-        //     .then(data => console.log(data));
     }
-    // console.log(category.filter(() => id.eachCategories === category._id))
-
-    const [findCategories, setFindCategories] = useState([]);
-    // useEffect(() => {
-    //     fetch("https://embark-n-explore.herokuapp.com/categories/:id")
-    //         .then(
-    //             (data) => data.json(),
-    //             (err) => console.log(err)
-    //         )
-    //         .then(
-    //             (parsedData) => setAllList(parsedData),
-    //             (err) => console.log(err)
-    //         );
-    // }, []);
 
     const handleDoubtfulVote = () => {
         console.log("doubtful")
     }
-    console.log(category[0].type)
+
+
     return (
         <div>
-            <p>{category[0].type === undefined ? '' : category[0].type}</p>
-            <h1>{categoryType}</h1>
-            {categoryType.map((fullList, index) => (
+            <h1>{data.type}</h1>
+            {data.embark_n_explores.map((fullList, index) => (
                 <div key={index}>
-                    <h2>Name of place or brand: {fullList.embark_n_explores.brand_or_location}</h2>
-                    <h2>{fullList.embark_n_explores.opening === "23:30:00.000" ? "" : `Opening Hours: ${fullList.embark_n_explores.opening} - ${fullList.embark_n_explores.closing}`}</h2>
-                    <h2>{fullList.embark_n_explores.closed_on === null ? "" : `${fullList.embark_n_explores.closed_on}`}</h2>
-                    <h2>{fullList.embark_n_explores.address === undefined ? "" : `Address: ${fullList.embark_n_explores.address} Postal code: ${fullList.embark_n_explores.postal_code}`}</h2>
-                    <h2>{fullList.embark_n_explores.website === undefined ? "" : `Website: ${fullList.embark_n_explores.website}`}</h2>
-                    <h2>{fullList.embark_n_explores.contact === undefined ? "" : `Contact no.: ${fullList.embark_n_explores.contact}`}</h2>
-                    <h2>{fullList.embark_n_explores.remarks === undefined ? "" : `Remarks: ${fullList.embark_n_explores.remarks}`}</h2>
-                    <h4>Legit Votes: {fullList.embark_n_explores.legit_votes}</h4>
-                    <h4>Doubtful Votes: {fullList.embark_n_explores.not_legit}</h4>
+                    <h2>Name of place or brand: {fullList.brand_or_location}</h2>
+                    <h2>{fullList.opening === "23:30:00.000" ? "" : `Opening Hours: ${fullList.opening} - ${fullList.closing}`}</h2>
+                    <h2>{fullList.closed_on === null ? "" : `${fullList.closed_on}`}</h2>
+                    <h2>{fullList.address === undefined ? "" : `Address: ${fullList.address} Postal code: ${fullList.postal_code}`}</h2>
+                    <h2>{fullList.website === undefined ? "" : `Website: ${fullList.website}`}</h2>
+                    <h2>{fullList.contact === undefined ? "" : `Contact no.: ${fullList.contact}`}</h2>
+                    <h2>{fullList.remarks === undefined ? "" : `Remarks: ${fullList.remarks}`}</h2>
+                    <h4>Legit Votes: {fullList.legit_votes}</h4>
+                    <h4>Doubtful Votes: {fullList.not_legit}</h4>
                     <button onClick={handleLegitVote} >Legit</button>
                     <button onClick={handleDoubtfulVote} >Doubtful</button>
                 </div>
             ))}
         </div>
     )
+
 }
