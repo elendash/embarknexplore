@@ -1,34 +1,32 @@
 import Home from './pages/home'
 import Login from './pages/login'
-import Categories from './pages/categories'
-
-import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
-
+import Nav from './pages/nav'
+import CategoriesPage from './pages/categories_page'
+import Create from './pages/create'
+import Error from './pages/error'
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
+
   return (
+
     <Router>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/">map links</Link>
-        </li>
-        <li>
-          <Link to="/login">Sign up/Login</Link>
-        </li>
-      </ul>
-      <button>Log out</button>
+      <Nav />
       <Switch>
         <Route path="/" exact>
           <Home />
         </Route>
-        {/* <Route path="/transport">
-          <Transport />
-        </Route> */}
+        <Route path="/category/:eachCategories">
+          <CategoriesPage />
+        </Route>
+        <Route path="/create">
+          <Create />
+        </Route>
         <Route path="/login">
           <Login />
+        </Route>
+        <Route>
+          <Error />
         </Route>
       </Switch>
     </Router >
