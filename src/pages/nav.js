@@ -18,8 +18,6 @@ function CategoriesData() {
     )
     if (isLoading) return 'Loading...'
     if (error) return 'An error has occurred: ' + error.message
-
-    console.log(data[0]._id)
     return (
         <>
             <ul>
@@ -28,8 +26,8 @@ function CategoriesData() {
                 </li>
                 {data.map((categoriesId, index) => {
                     return (
-                        <li key={index} onClick={() => { history.push(`/category/${categoriesId._id}`) }}>
-                            <Link to={`/category/${categoriesId._id}`} linkId={`/category/${categoriesId._id}`}>{categoriesId.type}</Link>
+                        <li key={index} >
+                            <Link to={`/category/${categoriesId._id}`}>{categoriesId.type}</Link>
                         </li>
                     )
                 })}
