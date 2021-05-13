@@ -19,7 +19,7 @@ function Pages() {
         'Content-Type': 'application/json',
     };
     const { isLoading, error, data } = useQuery(['repoData', eachCategories], () =>
-        fetch(`https://embark-n-explore.herokuapp.com/categories/${eachCategories}`, {
+        fetch(`https://embark-n-explore.herokuapp.com/${eachCategories}`, {
             method: 'GET',
             headers: headers,
         }).then(res =>
@@ -43,7 +43,7 @@ function Pages() {
                     <h2>{fullList.remarks === undefined ? "" : `Remarks: ${fullList.remarks}`}</h2>
                     <h4>Legit Votes: {fullList.legit_votes}</h4>
                     <h4>Doubtful Votes: {fullList.not_legit}</h4>
-                    <Polling eachData={fullList} />
+                    {/* {user === "login" && (<Polling eachData={fullList} />)} */}
                 </div>
             ))}
         </div>
