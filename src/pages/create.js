@@ -55,7 +55,7 @@ export default function Create() {
             <h1>Suggest New Location or Service</h1>
             <form onSubmit={handleSubmit}>
                 <label>Name of place or brand:</label>
-                <input type="text" name="brand_or_location" required minlength="2" />
+                <input type="text" name="brand_or_location" required minLength="2" />
                 <label>Opening hours:</label>
                 <input type="time" name="opening" /> to <input type="time" name="closing" />
                 <label>Closed on:</label>

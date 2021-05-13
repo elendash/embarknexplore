@@ -1,48 +1,56 @@
-import axios from 'axios';
-import { useState } from 'react'
-import Cookie from "js-cookie";
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { useState } from "react";
 
 
-export default function SignUp() {
-    const [user, setUser] = useState("null");
-    const [emailAdd, setEmailAdd] = useState("null");
-    const [pW, setPW] = useState("null");
+export default function SignUp(props) {
+    const setUserAuth = props.setUser
+    console.log(setUserAuth);
+    const headers = {
+        'Content-Type': 'application/json',
+    }
     const history = useHistory();
-
+    const [msg, setMsg] = useState("")
     const handleCreateUser = (event) => {
         event.preventDefault();
-        setUser(event.target.username.value);
-        setEmailAdd(event.target.email.value);
-        setPW(event.target.password.value);
-        if (user || emailAdd || pW === "null") {
-            return <h4>Input required.</h4>
-        }
         fetch("https://embark-n-explore.herokuapp.com/auth/local/register", {
             method: 'POST',
-            username: user,
-            email: emailAdd,
-            password: pW,
+            headers: headers,
+            body: JSON.stringify({
+                username: event.target.username.value,
+                email: event.target.email.value,
+                password: event.target.password.value
+            })
         }).then(res => {
             console.log('Successful registered user');
-            console.log('User profile', res.data.user);
-            console.log('User token', res.data.jwt);
+            console.log(res.data);
+            setMsg("Sign up Success! You will be redirected to Login page");
+            setTimeout(() => {
+                history.push("/login");
+            }, 3000);
         })
-            .catch(error => {
-                console.log('An error occurred:', error.response);
-            });
     }
     return (
         <>
+            <h1>New here? Sign up!</h1>
+            <h4>{msg}</h4>
             <form onSubmit={handleCreateUser}>
                 <label>Username</label>
-                <input type="text" name="username" required minlength="6" />
+                <input type="text" name="username" required minLength="6" />
                 <label>Password</label>
-                <input type="text" name="password" required minlength="6" />
+                <input type="text" name="password" required minLength="6" />
                 <label>Email</label>
                 <input type="email" name="email" required />
                 <input type="submit" />
             </form>
+            <h3>Perks of being a memeber...</h3>
+            <h4>You can be our top contributor to this
+            website, let our community know more fun
+            places to bring our furry little one too.
+            Also help use valid the information by
+            submitting a poll if it is legitimate information.
+            Thanks for contributing and build this website better!
+                </h4>
+
         </>
     )
 }
