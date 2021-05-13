@@ -33,12 +33,13 @@ function Pages() {
         <div className='dark:bg-green-100 p-20 w-2/6'>
             <h1 className='text-left text-gray-700 text-5xl font-sans pb-7 font-black uppercase'>{data.type}</h1>
             {data.embark_n_explores.map((fullList, index) => (
-                <div key={index} className='flex flex-wrap pt-20 pb-7 pl-2 pr-24 text-xl font-semibold'>
+                <div key={index} className='flex flex-wrap pt-20 pb-7 pl-2 pr-24 text-xl text-gray-700 font-semibold'>
                     <div className='uppercase text-sm font-bold'>Name of place or brand:
                     </div>
-                    <h2 className='text-4xl pb-3'>{fullList.brand_or_location}</h2>
-                    <h2 >{fullList.opening === "23:30:00.000" ? "" : `Opening Hours: ${fullList.opening} - ${fullList.closing}`}</h2>
-                    <h2 >{fullList.closed_on === "None" ? "" : `${fullList.closed_on}`}</h2>
+                    <h2 className='text-4xl pb-3 font-extrabold'>{fullList.brand_or_location}</h2>
+                    <div className='uppercase text-sm font-bold'>Opening Hours:</div>
+                    <h2 className='text-2xl pb-3'>{fullList.opening === "23:30:00.000" ? "" : `${fullList.opening} - ${fullList.closing}`}</h2>
+                    <h2 >{fullList.closed_on === "None" ? "" : `Close on: ${fullList.closed_on}`}</h2>
                     <h2 >{fullList.address === undefined ? "" : `Address: ${fullList.address} Postal code: ${fullList.postal_code}`}</h2>
                     <h2 >{fullList.website === undefined ? "" : `Website: ${fullList.website}`}</h2>
                     <h2 >{fullList.contact === undefined ? "" : `Contact no.: ${fullList.contact}`}</h2>
