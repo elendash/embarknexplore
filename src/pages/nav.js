@@ -1,24 +1,16 @@
 import { Redirect, useHistory, Link } from "react-router-dom";
 import { useQuery, QueryClient, QueryClientProvider } from "react-query"
-import Cookie from "js-cookie";
 
 
 const queryClient = new QueryClient()
-export default function Nav(props) {
-    const userAuth = props.user
-    const setUserAuth = props.setUser
-    console.log(userAuth)
-
+export default function Nav() {
     return (
         <QueryClientProvider client={queryClient}>
-            <CategoriesData users={userAuth} setUsers={setUserAuth} />
+            <CategoriesData />
         </QueryClientProvider>
     )
 }
-function CategoriesData(props) {
-    const userAuth = props.users
-    const setUserAuth = props.setUsers
-    console.log(userAuth)
+function CategoriesData({ setUser }) {
     const history = useHistory();
     const { isLoading, error, data } = useQuery('repoData', () =>
         fetch('https://embark-n-explore.herokuapp.com/categories').then(res =>
@@ -29,41 +21,37 @@ function CategoriesData(props) {
     if (error) return 'An error has occurred: ' + error.message
 
     const handleLogout = () => {
-        Cookie.remove("token");
-        setUserAuth("Logout");
+        setUser("Logout");
         <Redirect to="/" />
     };
 
     return (
         <>
-            <ul>
-                <li onClick={() => { history.push("/") }}>
+            <div className='dark:bg-gray-700 text-xl uppercase text-white font-bold grid md:grid-flow-col justify-items-center content-center p-8'>
+                <div onClick={() => { history.push("/") }} className='p-4 pb-8 place-self-center'>
                     <Link to="/">Home</Link>
-                </li>
+                </div>
                 {data.map((categoriesId, index) => {
                     return (
-                        <li key={index} >
-                            <Link to={`/category/${categoriesId._id}`} onClick={() => { history.push(`/category/${categoriesId._id}`) }}>{categoriesId.type}</Link>
-                        </li>
+                        <div key={index} className='p-4 pb-8 text-center place-self-center'>
+                            <Link to={`/category/${categoriesId._id}`} >{categoriesId.type}</Link>
+                        </div>
                     )
                 })}
-                <li>
+                <div className='p-4 pb-8 text-center place-self-center'>
                     <Link to="/signup">Sign Up Now</Link>
-                </li>
-                <li>
+                </div>
+                <div className='p-4 pb-8 place-self-center'>
                     <Link to="/login" onClick={() => { history.push("/login") }}>Login</Link>
-                </li>
-                {/* {userAuth === "login" && ( */}
-                <li>
+                </div>
+                <div className='p-4 pb-8 text-center place-self-center'>
                     <Link to="/create" onClick={() => { history.push("/create") }}>Add List</Link>
-                </li>
-                {/* ) && ( */}
-                <li>
+                </div>
+                <div className='p-4 pb-8 text-center place-self-center'>
                     <Link to="/logout" onClick={handleLogout}>Log out</Link>
-                </li>
-                {/* )} */}
+                </div>
 
-            </ul>
+            </div>
         </>
     )
 }

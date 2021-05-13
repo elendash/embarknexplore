@@ -38,10 +38,14 @@ export default function Polling(props) {
     return (
         <>
             <form onSubmit={handleSubmit}>
-                <h4>Poll: Is this information legit or doubtful</h4>
-                <input type="radio" name="vote" value="Legit" />Legit
-                        <input type="radio" name="vote" value="Doubtful" />Doubtful
-                        <input type="submit" value="submit" onClick={disableOnclick} />
+                <label className='text-gray-700 block'>
+                    <span className='text-gray-700'>Poll: Is this information legit or doubtful</span>
+                    <input type="radio" name="vote" value="Legit" className='form-radio text-gray-700' />
+                    <span class="ml-2">Legit</span>Legit
+                        <input type="radio" name="vote" value="Doubtful" className='form-radio text-gray-700' />
+                    <span class="ml-2">Doubtful</span>
+                    <input type="submit" value="submit" onClick={disableOnclick} className='text-gray-700' />
+                </label>
             </form>
         </>
     )

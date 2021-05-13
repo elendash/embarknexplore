@@ -23,15 +23,12 @@ function App() {
         <Route path="/category/:eachCategories">
           <CategoriesPage />
         </Route>
-        {/* {userAuth === "login" && ( */}
         <Route path="/voteCategory/:eachCategories">
           <CategoriesPage user={userAuth} />
         </Route>
-        {/* ) && ( */}
         <Route path="/create">
           <Create />
         </Route>
-        {/* )} */}
         <Route path="/login">
           <Login user={setUserAuth} />
         </Route>
