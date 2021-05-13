@@ -38,12 +38,19 @@ function Pages() {
                     </div>
                     <h2 className='text-4xl pb-3 font-extrabold'>{fullList.brand_or_location}</h2>
                     <div className='uppercase text-sm font-bold'>Opening Hours:</div>
-                    <h2 className='text-2xl pb-3'>{fullList.opening === "23:30:00.000" ? "" : `${fullList.opening} - ${fullList.closing}`}</h2>
-                    <h2 >{fullList.closed_on === "None" ? "" : `Close on: ${fullList.closed_on}`}</h2>
-                    <h2 >{fullList.address === undefined ? "" : `Address: ${fullList.address} Postal code: ${fullList.postal_code}`}</h2>
-                    <h2 >{fullList.website === undefined ? "" : `Website: ${fullList.website}`}</h2>
+                    <h2 className='text-2xl pb-1 pr-5'>{fullList.opening === "23:30:00.000" ? "" : `${fullList.opening} - ${fullList.closing}`}</h2>
+
+                    <div className='uppercase text-sm font-bold pt-2 pr-5'>Close on:</div>
+                    <h2 className='text-2xl pb-1'>{fullList.closed_on === "None" ? "" : `${fullList.closed_on}`}</h2>
+                    <div className='uppercase text-sm font-bold'>Address:</div>
+                    <h2 >{fullList.address === undefined ? "" : `${fullList.address}, Singapore ${fullList.postal_code}`}</h2>
+                    <div className='uppercase text-sm font-bold'>Website:</div>
+                    <h2 >{fullList.website === undefined ? "" : fullList.website}</h2>
+                    <div className='uppercase text-sm font-bold'>Opening Hours:</div>
                     <h2 >{fullList.contact === undefined ? "" : `Contact no.: ${fullList.contact}`}</h2>
+                    <div className='uppercase text-sm font-bold'>Opening Hours:</div>
                     <h2 >{fullList.remarks === undefined ? "" : `Remarks: ${fullList.remarks}`}</h2>
+                    <div className='uppercase text-sm font-bold'>Opening Hours:</div>
                     <h4 >Legit Votes: {fullList.legit_votes}</h4>
                     <h4 >Doubtful Votes: {fullList.not_legit}</h4>
                     <Polling eachData={fullList} />
