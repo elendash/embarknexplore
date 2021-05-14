@@ -61,7 +61,7 @@ export function Pages({ userAuth }) {
                             <h2 >{fullList.remarks === undefined ? "" : fullList.remarks}</h2>
                             <div className='uppercase text-sm font-bold pt-6 pr-5'>Legit Votes: {fullList.legit_votes}  Doubtful Votes: {fullList.not_legit}</div>
                             <div className='text-sm font-normal pr-5 '>Content is validated by users' poll.</div>
-                            {userAuth === "login" && (<Polling eachData={fullList} />)}
+                            <Polling eachData={fullList} />
 
                         </div>
                     ))

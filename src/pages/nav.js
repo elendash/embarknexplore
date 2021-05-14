@@ -22,7 +22,7 @@ function CategoriesData({ isAuthenticated, setAuthenticated }) {
     if (error) return 'An error has occurred: ' + error.message
 
     const handleLogout = () => {
-        setAuthenticated(false);
+        // setAuthenticated(false);
         <Redirect to="/" />
     };
 
