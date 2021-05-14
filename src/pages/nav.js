@@ -28,7 +28,7 @@ function CategoriesData({ isAuthenticated, setAuthenticated }) {
 
     return (
         <>
-            <div className='dark:bg-gray-700 text-xl uppercase text-white font-bold grid md:grid-flow-col justify-items-center content-center p-8'>
+            <div className='bg-gray-900 text-xl uppercase text-white font-bold grid md:grid-flow-col justify-items-center content-center p-8'>
                 <div onClick={() => { history.push("/") }} className='p-4 pb-8 place-self-center'>
                     <Link to="/">Home</Link>
                 </div>

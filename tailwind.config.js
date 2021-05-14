@@ -1,6 +1,6 @@
 module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
-  darkMode: 'media',
+  darkMode: false,
   theme: {
     fontFamily: {
       display: ['Poppins', 'system-ui', 'sans-serif'],

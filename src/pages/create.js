@@ -53,45 +53,64 @@ export default function Create() {
     return (
 
         <div className='flex flex-wrap'>
-            <div className="grid justify-items-center text-gray-700 dark:bg-green-100 bg-cover h-full p-60 w-3/6 text-center">
+            <div className="grid justify-items-center text-gray-700 bg-green-200 bg-cover h-full w-3/6 text-center">
 
-                <h1 className="font-extrabold text-5xl uppercase pb-5 ml-16 mr-16 mt-1 mb-10">Suggest New Location or Service</h1>
+                <h1 className="font-extrabold text-5xl uppercase pb-5 m-20">Suggest New Location or Service</h1>
                 <form onSubmit={handleSubmit}>
-                    <label className="font-semibold text-2xl">Name of place or brand:</label>
-                    <input type="text" name="brand_or_location" required minLength="2" className="rounded-lg p-1 w-full mt-6 mb-20 ml-8" />
-                    <label className="font-semibold text-2xl pr-2 ">Opening hours:</label>
-                    <input type="time" name="opening" /> to <input type="time" name="closing" />
-                    <label className="font-semibold text-2xl pl-20 ">Closed on:</label>
-                    <select name="closed_on" placeholder="None" type="select" className="rounded-lg p-1 w-60 mt-6 mb-10 ml-8">
-                        <option value="None">Select</option>
-                        <option value="Monday">Monday</option>
-                        <option value="Tuesday">Tuesday</option>
-                        <option value="Wednesday">Wednesday</option>
-                        <option value="Thursday">Thursday</option>
-                        <option value="Friday">Friday</option>
-                        <option value="Saturday">Saturday</option>
-                        <option value="Sunday">Sunday</option>
-                        <option value="Weekdays">Weekdays</option>
-                        <option value="Weekends">Weekends</option>
-                        <option value="Public_Holidays">Public_Holidays</option>
-                        <option value="More_than_one_day_see_remarks">More_than_one_day_see_remarks</option>
-                    </select>
-                    <label className="font-semibold text-2xl">Address:</label>
-                    <input type="text" name="address" className="rounded-lg p-1 w-96 mt-6 mb-10 ml-3" />
-                    <label className="font-semibold text-2xl">Postal code:</label>
-                    <input type="number" name="postal_code" className="rounded-lg p-1 w-96 mt-6 mb-10 ml-8" />
-                    <label className="font-semibold text-2xl">Website:</label>
-                    <input type="url" name="website" className="rounded-lg p-1 w-96 mt-6 mb-10 ml-8" />
-                    <label className="font-semibold text-2xl">Contact:</label>
-                    <input type="tel" name="contact" className="rounded-lg p-1 w-96 mt-6 mb-10 ml-8" />
-                    <label className="font-semibold text-2xl">Remarks:</label>
-                    <input type="text" name="remarks" className="rounded-lg p-16 w-96 mt-6 mb-20 ml-8" />
-                    <h4 className="font-normal text-xl pb-6">You can select more than one categories. Note - At least one category selection is required.</h4>
-                    <label className="font-semibold text-2xl">Categories:</label>
-                    <MultiSelect options={options} value={selected} onChange={setSelected} labelledBy="Select" className="rounded-full w-full py-5" />
-                    <input type="submit" value="submit" className="bg-green-200 rounded-full mt-10 mb-5 py-2 px-5" />
+                    <label className="font-bold text-2xl p-1 ml-10">
+                        <span>Name of place or brand:</span>
+                        <input type="text" name="brand_or_location" required minLength="2" className="rounded-lg w-6/12 mt-6 mb-16 ml-8 mr-10" />
+                    </label>
+                    <label className="font-bold text-2xl block">
+                        <span>Opening hours:</span>
+                        <input type="time" name="opening" className="rounded-lg w-2/12 mt-6 mb-16 ml-8 mr-10" /> to <input type="time" name="closing" className="rounded-lg w-2/12 mt-6 mb-16 ml-8 mr-10" />
+                    </label>
+                    <label className="font-bold text-2xl pl-10 block">
+                        <span>Closed on:</span>
+                        <select name="closed_on" placeholder="None" type="select" className="rounded-lg p-1 w-60 mt-6 mb-4 ml-8 mr-5">
+                            <option value="None">Select</option>
+                            <option value="Monday">Monday</option>
+                            <option value="Tuesday">Tuesday</option>
+                            <option value="Wednesday">Wednesday</option>
+                            <option value="Thursday">Thursday</option>
+                            <option value="Friday">Friday</option>
+                            <option value="Saturday">Saturday</option>
+                            <option value="Sunday">Sunday</option>
+                            <option value="Weekdays">Weekdays</option>
+                            <option value="Weekends">Weekends</option>
+                            <option value="Public_Holidays">Public_Holidays</option>
+                            <option value="More_than_one_day_see_remarks">More_than_one_day_see_remarks</option>
+                        </select>
+                    </label>
+                    <label className="font-bold text-2xl pl-20">
+                        <span>Address:</span>
+                        <input type="text" name="address" className="rounded-lg p-10 w-4/6 mt-16 mb-2 ml-5 mr-32" />
+                    </label>
+                    <label className="font-bold text-2xl">
+                        <span>Postal code:</span>
+                        <input type="number" name="postal_code" className="rounded-lg w-96 mt-10 mb-20 ml-5" />
+                    </label>
+                    <label className="font-bold text-2xl block">
+                        <span>Website:</span>
+                        <input type="url" name="website" className="rounded-lg p-1 w-7/12 mb-10 ml-10" />
+                    </label>
+                    <label className="font-bold text-2xl block">
+                        <span>Contact:</span>
+                        <input type="tel" name="contact" className="rounded-lg w-96 mt-6 mb-10 ml-8" />
+                    </label>
+                    <label className="font-bold text-2xl">
+                        <span>Remarks:</span>
+                        <input type="text" name="remarks" className="rounded-lg p-16 w-96 mt-6 mb-20 ml-8" />
+                    </label>
+                    <label className="font-bold text-2xl block">
+                        <span>Categories:</span>
+                        <MultiSelect options={options} value={selected} onChange={setSelected} labelledBy="Select" className="rounded-full w-9/12 py-1 ml-32" />
+                    </label>
+                    <h4 className="font-normal text-l pb-6 mt-2">You can select more than one categories. Note - At least one category selection is required.</h4>
+
+                    <input type="submit" value="submit" className="bg-green-400 rounded-full mt-20 mb-5 py-2 px-5" />
                 </form>
-                <h3 className="p-3">Thanks for contributing! Our furry little ones now have another new place to explore!</h3>
+                <h3 className="p-3 mb-10">Thanks for contributing! Our furry little ones now have another new place to explore!</h3>
             </div>
             <img src="https://images.unsplash.com/photo-1559190394-df5a28aab5c5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80" alt="" className="object-full w-6/12 h-11/12" />
 

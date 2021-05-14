@@ -32,13 +32,13 @@ export default function Polling(props) {
         }
 
     }
-    const disableOnclick = (event) => {
-        event.target.disabled = true
-    }
+    // const disableOnclick = (event) => {
+    //     event.target.disabled = true
+    // }
     return (
         <div>
             <form onSubmit={handleSubmit} >
-                <label className='tracking-wide flex flex-col pt-4'>
+                <label className='tracking-wide flex flex-col pt-20'>
                     <span className='text-gray-700 uppercase text-sm font-bold'>Is this information legit or doubtful</span>
                     <span class="ml-2 pt-2">Legit
                     <input type="radio" name="vote" value="Legit" className='form-radio text-gray-700 pl-4' />
@@ -47,7 +47,8 @@ export default function Polling(props) {
                         Doubtful
                     <input type="radio" name="vote" value="Doubtful" className='form-radio text-gray-700' />
                     </span>
-                    <input type="submit" value="submit" onClick={disableOnclick} className="bg-green-200 rounded-full py-2 px-5 uppercase" />
+                    <input type="submit" value="submit"
+                        className="bg-green-300 rounded-full py-2 px-5 uppercase" />
                 </label>
             </form>
         </div>
