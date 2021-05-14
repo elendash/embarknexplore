@@ -1,7 +1,7 @@
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 
-export default function Login({ setUserAuth }) {
+export default function Login({ setAuthenticated }) {
     const [msg, setMsg] = useState("")
     const headers = {
         'Content-Type': 'application/json',
@@ -20,7 +20,7 @@ export default function Login({ setUserAuth }) {
         }).then(res => {
             console.log(res.data);
             setMsg("Login Success! You will be redirected to Home page");
-            setUserAuth("login");
+            setAuthenticated(true);
             setTimeout(() => {
                 history.push("/");
             }, 3000);

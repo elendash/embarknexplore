@@ -3,15 +3,15 @@ import { useQuery, QueryClient, QueryClientProvider } from "react-query"
 
 
 const queryClient = new QueryClient()
-export default function Nav({ userAuth }) {
+export default function Nav({ isAuthenticated, setAuthenticated }) {
     return (
         <QueryClientProvider client={queryClient}>
             <CategoriesData />
         </QueryClientProvider>
     )
 }
-function CategoriesData({ userAuth }) {
-    console.log(userAuth);
+function CategoriesData({ isAuthenticated, setAuthenticated }) {
+    console.log(isAuthenticated);
     const history = useHistory();
     const { isLoading, error, data } = useQuery('repoData', () =>
         fetch('https://embark-n-explore.herokuapp.com/categories').then(res =>
@@ -22,6 +22,7 @@ function CategoriesData({ userAuth }) {
     if (error) return 'An error has occurred: ' + error.message
 
     const handleLogout = () => {
+        setAuthenticated(false);
         <Redirect to="/" />
     };
 
@@ -45,14 +46,16 @@ function CategoriesData({ userAuth }) {
                 <div className='p-4 pb-8 place-self-center'>
                     <Link to="/login" onClick={() => { history.push("/login") }}>Login</Link>
                 </div>
-                {userAuth === "login" && (
-                    <div className='p-4 pb-8 text-center place-self-center'>
-                        <Link to="/create" onClick={() => { history.push("/create") }}>Add List</Link>
-                    </div>)}
-                {userAuth === "login" && (
-                    <div className='p-4 pb-8 text-center place-self-center'>
-                        <Link to="/logout" onClick={handleLogout}>Log out</Link>
-                    </div>)}
+                {/* {isAuthenticated ? ( */}
+                <div className='p-4 pb-8 text-center place-self-center'>
+                    <Link to="/create" onClick={() => { history.push("/create") }}>Add List</Link>
+                </div>
+                {/* ) : ("")} */}
+                {/* {isAuthenticated ? ( */}
+                <div className='p-4 pb-8 text-center place-self-center'>
+                    <Link to="/logout" onClick={handleLogout}>Log out</Link>
+                </div>
+                {/* ) : ("")} */}
 
             </div>
         </>
