@@ -3,14 +3,15 @@ import { useQuery, QueryClient, QueryClientProvider } from "react-query"
 
 
 const queryClient = new QueryClient()
-export default function Nav() {
+export default function Nav({ userAuth }) {
     return (
         <QueryClientProvider client={queryClient}>
             <CategoriesData />
         </QueryClientProvider>
     )
 }
-function CategoriesData({ setUser }) {
+function CategoriesData({ userAuth }) {
+    console.log(userAuth);
     const history = useHistory();
     const { isLoading, error, data } = useQuery('repoData', () =>
         fetch('https://embark-n-explore.herokuapp.com/categories').then(res =>
@@ -21,7 +22,6 @@ function CategoriesData({ setUser }) {
     if (error) return 'An error has occurred: ' + error.message
 
     const handleLogout = () => {
-        setUser("Logout");
         <Redirect to="/" />
     };
 
@@ -41,15 +41,18 @@ function CategoriesData({ setUser }) {
                 <div className='p-4 pb-8 text-center place-self-center'>
                     <Link to="/signup">Sign Up Now</Link>
                 </div>
+
                 <div className='p-4 pb-8 place-self-center'>
                     <Link to="/login" onClick={() => { history.push("/login") }}>Login</Link>
                 </div>
-                <div className='p-4 pb-8 text-center place-self-center'>
-                    <Link to="/create" onClick={() => { history.push("/create") }}>Add List</Link>
-                </div>
-                <div className='p-4 pb-8 text-center place-self-center'>
-                    <Link to="/logout" onClick={handleLogout}>Log out</Link>
-                </div>
+                {userAuth === "login" && (
+                    <div className='p-4 pb-8 text-center place-self-center'>
+                        <Link to="/create" onClick={() => { history.push("/create") }}>Add List</Link>
+                    </div>)}
+                {userAuth === "login" && (
+                    <div className='p-4 pb-8 text-center place-self-center'>
+                        <Link to="/logout" onClick={handleLogout}>Log out</Link>
+                    </div>)}
 
             </div>
         </>

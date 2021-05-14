@@ -2,10 +2,12 @@ import { useParams } from 'react-router-dom';
 import { useQuery, QueryClient, QueryClientProvider } from "react-query"
 import Polling from '../components/polling'
 import '../App.css';
+import ImageData from '../components/imageData'
 
 const queryClient = new QueryClient()
 
-export default function CategoriesPage() {
+export default function CategoriesPage({ userAuth }) {
+    console.log(userAuth)
     return (
         <QueryClientProvider client={queryClient}>
             <Pages />
@@ -13,7 +15,7 @@ export default function CategoriesPage() {
     )
 }
 
-function Pages({ user }) {
+export function Pages({ userAuth }) {
     const { eachCategories } = useParams();
     const headers = {
         'Content-Type': 'application/json',
@@ -26,11 +28,18 @@ function Pages({ user }) {
             res.json()
         )
     )
-    if (isLoading) return 'Loading...'
+    if (isLoading) return '.'
     if (error) return 'An error has occurred: ' + error.message
 
+    // const imageData = () => {
+    //     if (data.embark_n_explores[0] === "undefined") {
+    //         console.log("image fail to load")
+    //     } else {
+    //         return `url(${data.embark_n_explores[0].image.name})`
+    //     }
+    // }
     return (
-        <div className='flex flex-wrap '>
+        <div className='flex flex-wrap'>
             < div className='dark:bg-green-100 p-20 w-2/6 tracking-wide flex flex-col divide-y-2 > * + * divide-gray-700' >
                 <h1 className='flex flex-col text-left text-gray-700 text-5xl font-sans pb-7 font-black uppercase tracking-wide'>{data.type}</h1>
                 {
@@ -52,16 +61,17 @@ function Pages({ user }) {
                             <h2 >{fullList.remarks === undefined ? "" : fullList.remarks}</h2>
                             <div className='uppercase text-sm font-bold pt-6 pr-5'>Legit Votes: {fullList.legit_votes}  Doubtful Votes: {fullList.not_legit}</div>
                             <div className='text-sm font-normal pr-5 '>Content is validated by users' poll.</div>
-                            {user === "login" && (<Polling eachData={fullList} />)}
+                            {userAuth === "login" && (<Polling eachData={fullList} />)}
 
                         </div>
                     ))
                 }
+                {/* <ImageData imagePlaceholder={data.embark_n_explores} /> */}
             </div >
-            <div className='text-gray-700 text-xl bg-green-900 box-content h-100 w-7/12 ml-11 mt-11 mb-11 box-border h-100 w-50 p-10'>
-                Map / Image area
-        </div>
+            <img src="https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80" alt="" className="object-full w-8/12 h-5/6" />
+
         </div >
     )
 
 }
+

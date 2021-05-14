@@ -12,10 +12,11 @@ function App() {
 
   const [userAuth, setUserAuth] = useState("logout");
   console.log(userAuth);
+
   return (
 
     <Router>
-      <Nav user={userAuth} setUser={setUserAuth} />
+      <Nav userAuth={userAuth} setUserAuth={setUserAuth} />
       <Switch>
         <Route path="/" exact>
           <Home />
@@ -24,16 +25,16 @@ function App() {
           <CategoriesPage />
         </Route>
         <Route path="/voteCategory/:eachCategories">
-          <CategoriesPage user={userAuth} />
+          <CategoriesPage userAuth={userAuth} />
         </Route>
-        <Route path="/create">
+        {userAuth === "login" && (<Route path="/create">
           <Create />
-        </Route>
+        </Route>)}
         <Route path="/login">
-          <Login user={setUserAuth} />
+          <Login setUserAuth={setUserAuth} />
         </Route>
         <Route path="/signUp">
-          <SignUp user={setUserAuth} />
+          <SignUp />
         </Route>
 
         <Route>

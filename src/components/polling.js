@@ -47,7 +47,7 @@ export default function Polling(props) {
                         Doubtful
                     <input type="radio" name="vote" value="Doubtful" className='form-radio text-gray-700' />
                     </span>
-                    <input type="submit" value="submit" onClick={disableOnclick} className='text-white bg-green-600 p-2 rounded-full uppercase' />
+                    <input type="submit" value="submit" onClick={disableOnclick} className="bg-green-200 rounded-full py-2 px-5 uppercase" />
                 </label>
             </form>
         </div>
